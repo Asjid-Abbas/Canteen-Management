@@ -12,7 +12,7 @@ The **Canteen Management System** is a web app that makes food ordering in cante
 
 - Laiba Sarwar
 - Asjid Abbas
-- Abdul Basit
+  
 
 ## Features
 

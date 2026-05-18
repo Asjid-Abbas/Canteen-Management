@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { Card, Form, Button, Alert, Container } from "react-bootstrap";
 import { motion } from "framer-motion";
 
 const Login = () => {
@@ -24,88 +23,95 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateEmail(email)) {
-      setError("Invalid email format");
-      return;
-    }
+    if (!validateEmail(email)) { setError("Invalid email format"); return; }
     try {
-      setError("");
-      setLoading(true);
+      setError(""); setLoading(true);
       const auth = getAuth();
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
-    } catch (err) {
-      setError("Failed to sign in: " + err.message);
-    }
+    } catch (err) { setError("Failed to sign in: " + err.message); }
     setLoading(false);
   };
 
   return (
-    <Container
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh" }}
-    >
-      <motion.div 
-        className="w-100" 
-        style={{ maxWidth: "400px" }}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Card className="rounded-4 shadow-sm border-0">
-          <Card.Body>
-            <h2 className="mb-4 fw-bold p-2">Login</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit}>
-              {email && (
-                <div className="d-flex justify-content-center mb-3">
-                  <img
-                    src={`https://ui-avatars.com/api/?name=${splitEmail}&background=random`}
-                    alt="profile"
-                    className="rounded-circle"
-                    width="100"
-                    height="100"
-                  />
-                </div>
-              )}
-              <Form.Group id="email" className="mb-3">
-                <Form.Label>Email</Form.Label>
-                <div className="d-flex align-items-center">
-                  <Form.Control
-                    type="email"
-                    value={email}
-                    onChange={handleEmailChange}
-                    required
-                  />
-                </div>
-              </Form.Group>
-              <Form.Group id="password" className="mb-3">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </Form.Group>
-              <Button
-                disabled={loading}
-                className="w-100 rounded-4"
-                type="submit"
-              >
-                Log In
-              </Button>
-            </Form>
-          </Card.Body>
-        </Card>
-        <div className="w-100 text-center mt-2">
-          Need an account?{" "}
-          <Link to="/signup" className="text-decoration-none">
-            Sign Up
-          </Link>
+    <div style={{ minHeight:"100vh", display:"flex", background:"linear-gradient(135deg,#1a3c5e,#2e75b6,#1a3c5e)", fontFamily:"'Segoe UI',Arial,sans-serif" }}>
+      
+      {/* LEFT */}
+      <div style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"40px", color:"white" }} className="d-none d-md-flex">
+        <div style={{ fontSize:"80px", marginBottom:"20px" }}>🍽️</div>
+        <h1 style={{ fontSize:"32px", fontWeight:"800", marginBottom:"10px" }}>Canteen Management</h1>
+        <p style={{ opacity:0.7, fontSize:"15px", textAlign:"center", maxWidth:"300px" }}>
+          Order your favorite food from the university canteen — fast, easy, and digital!
+        </p>
+        <div style={{ marginTop:"40px", display:"flex", flexDirection:"column", gap:"12px", width:"280px" }}>
+          {["🛒  Easy Ordering", "📊  Track Orders", "🔒  Secure Login", "📄  PDF Receipts"].map(f => (
+            <div key={f} style={{ background:"rgba(255,255,255,0.1)", borderRadius:"10px", padding:"10px 18px", fontSize:"13px" }}>{f}</div>
+          ))}
         </div>
-      </motion.div>
-    </Container>
+      </div>
+
+      {/* RIGHT */}
+      <div style={{ width:"100%", maxWidth:"480px", background:"white", display:"flex", alignItems:"center", justifyContent:"center", padding:"40px", boxShadow:"-10px 0 40px rgba(0,0,0,0.2)" }}>
+        <motion.div style={{ width:"100%" }} initial={{ opacity:0, x:30 }} animate={{ opacity:1, x:0 }} transition={{ duration:0.5 }}>
+          
+          {/* LOGO */}
+          <div style={{ textAlign:"center", marginBottom:"30px" }}>
+            <div style={{ width:"65px", height:"65px", background:"linear-gradient(135deg,#1a3c5e,#2e75b6)", borderRadius:"16px", margin:"0 auto 12px", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"30px", boxShadow:"0 8px 20px rgba(46,117,182,0.3)" }}>🍽️</div>
+            <h2 style={{ color:"#1a3c5e", fontWeight:"800", fontSize:"26px", margin:"0" }}>Welcome Back!</h2>
+            <p style={{ color:"#888", fontSize:"13px", marginTop:"5px" }}>Sign in to your canteen account</p>
+          </div>
+
+          {/* AVATAR */}
+          {email && (
+            <motion.div style={{ textAlign:"center", marginBottom:"20px" }} initial={{ scale:0 }} animate={{ scale:1 }}>
+              <img src={`https://ui-avatars.com/api/?name=${splitEmail}&background=1a3c5e&color=fff&size=80`}
+                alt="profile" style={{ borderRadius:"50%", width:"70px", height:"70px", border:"3px solid #2e75b6", boxShadow:"0 4px 15px rgba(46,117,182,0.3)" }} />
+            </motion.div>
+          )}
+
+          {/* ERROR */}
+          {error && (
+            <div style={{ background:"#fff5f5", border:"1px solid #feb2b2", borderRadius:"10px", padding:"12px 15px", color:"#c53030", fontSize:"13px", marginBottom:"20px" }}>
+              ⚠️ {error}
+            </div>
+          )}
+
+          {/* EMAIL */}
+          <div style={{ marginBottom:"18px" }}>
+            <label style={{ color:"#1a3c5e", fontWeight:"600", fontSize:"13px", marginBottom:"6px", display:"block" }}>Email Address</label>
+            <input type="email" value={email} onChange={handleEmailChange} required placeholder="Enter your email"
+              style={{ width:"100%", padding:"12px 15px", border:"2px solid #e2e8f0", borderRadius:"10px", fontSize:"14px", outline:"none", boxSizing:"border-box" }}
+              onFocus={e => e.target.style.borderColor="#2e75b6"}
+              onBlur={e => e.target.style.borderColor="#e2e8f0"} />
+          </div>
+
+          {/* PASSWORD */}
+          <div style={{ marginBottom:"25px" }}>
+            <label style={{ color:"#1a3c5e", fontWeight:"600", fontSize:"13px", marginBottom:"6px", display:"block" }}>Password</label>
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} required placeholder="Enter your password"
+              style={{ width:"100%", padding:"12px 15px", border:"2px solid #e2e8f0", borderRadius:"10px", fontSize:"14px", outline:"none", boxSizing:"border-box" }}
+              onFocus={e => e.target.style.borderColor="#2e75b6"}
+              onBlur={e => e.target.style.borderColor="#e2e8f0"} />
+          </div>
+
+          {/* BUTTON */}
+          <button onClick={handleSubmit} disabled={loading}
+            style={{ width:"100%", padding:"13px", background:loading?"#94a3b8":"linear-gradient(135deg,#1a3c5e,#2e75b6)", color:"white", border:"none", borderRadius:"10px", fontSize:"15px", fontWeight:"700", cursor:loading?"not-allowed":"pointer", boxShadow:"0 4px 15px rgba(46,117,182,0.4)" }}>
+            {loading ? "Signing in..." : "Sign In →"}
+          </button>
+
+          <div style={{ textAlign:"center", marginTop:"20px", color:"#888", fontSize:"13px" }}>
+            Don't have an account?{" "}
+            <Link to="/signup" style={{ color:"#2e75b6", fontWeight:"700", textDecoration:"none" }}>Sign Up</Link>
+          </div>
+
+          <div style={{ textAlign:"center", marginTop:"25px", paddingTop:"20px", borderTop:"1px solid #f0f0f0", color:"#aaa", fontSize:"11px" }}>
+            University of Thal, Bhakkar — Canteen Management System
+          </div>
+
+        </motion.div>
+      </div>
+    </div>
   );
 };
 

@@ -1,9 +1,8 @@
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1.5rem;
   margin-bottom: 3rem;
-  animation: fadeIn var(--transition-slow);
 }
 
 .product-card-wrapper {
@@ -15,32 +14,33 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: var(--background-light);
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
+  background: white;
+  border-radius: 16px;
   overflow: hidden;
-  transition: all var(--transition-normal);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 15px rgba(26, 60, 94, 0.08);
+  transition: all 0.3s ease;
 }
 
-/* .product-card:hover {
-  box-shadow: var(--shadow-md);
-  border-color: var(--primary-light);
-} */
+.product-card:hover {
+  box-shadow: 0 12px 35px rgba(26, 60, 94, 0.18);
+  border-color: #2e75b6;
+  transform: translateY(-4px);
+}
 
 .product-image-container {
   position: relative;
   width: 100%;
   height: 200px;
   overflow: hidden;
-  background-color: var(--background);
+  background: linear-gradient(135deg, #1a3c5e, #2e75b6);
 }
 
 .product-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-normal);
+  transition: transform 0.4s ease;
 }
 
 .product-card:hover .product-image {
@@ -52,11 +52,11 @@
   inset: 0;
   display: flex;
   backdrop-filter: blur(3px);
-  background-color: #03030366;
+  background: linear-gradient(135deg, rgba(26,60,94,0.7), rgba(46,117,182,0.7));
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity var(--transition-normal);
+  transition: opacity 0.3s ease;
 }
 
 .product-card:hover .product-overlay {
@@ -68,43 +68,44 @@
   border: 2px solid white;
   color: white;
   padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: all var(--transition-normal);
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
 .overlay-btn:hover {
-  background-color: white;
-  color: var(--primary-color);
-  transform: scale(1.05);
+  background: white;
+  color: #1a3c5e;
 }
 
 .stock-badge {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  padding: 0.5rem 0.85rem;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   z-index: 10;
 }
 
 .out-of-stock {
-  background-color: var(--accent-danger);
+  background: #e53e3e;
   color: white;
+  box-shadow: 0 4px 10px rgba(229,62,62,0.4);
 }
 
 .low-stock {
-  background-color: var(--accent-warning);
+  background: #ed8936;
   color: white;
+  box-shadow: 0 4px 10px rgba(237,137,54,0.4);
 }
 
 .product-body {
@@ -118,7 +119,7 @@
 .product-name {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #1a3c5e;
   margin: 0;
   line-height: 1.3;
   display: -webkit-box;
@@ -130,11 +131,8 @@
 
 .product-price {
   font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  display: flex;
-  align-items: baseline;
-  gap: 0.25rem;
+  font-weight: 800;
+  color: #2e75b6;
 }
 
 .product-quantity {
@@ -142,21 +140,22 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem;
-  background-color: var(--background);
-  border-radius: 8px;
+  background: #f0f7ff;
+  border-radius: 10px;
   font-size: 0.9rem;
+  border: 1px solid #bee3f8;
 }
 
 .qty-label {
-  color: var(--text-secondary);
-  font-weight: 500;
+  color: #1a3c5e;
+  font-weight: 600;
 }
 
 .qty-value {
-  background-color: var(--primary-color);
+  background: linear-gradient(135deg, #1a3c5e, #2e75b6);
   color: white;
   padding: 0.25rem 0.75rem;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: 700;
   min-width: 40px;
   text-align: center;
@@ -164,107 +163,53 @@
 
 .product-add-btn {
   margin-top: auto;
-  background-color: var(--primary-color);
+  background: linear-gradient(135deg, #1a3c5e, #2e75b6);
   color: white;
   border: none;
   padding: 0.85rem 1rem;
-  border-radius: 8px;
-  font-weight: 600;
+  border-radius: 10px;
+  font-weight: 700;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: all var(--transition-normal);
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(46,117,182,0.3);
 }
 
 .product-add-btn:hover:not(:disabled) {
-  background-color: var(--primary-light);
+  box-shadow: 0 8px 25px rgba(46,117,182,0.5);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
 }
 
 .product-add-btn:disabled {
-  background-color: var(--text-light);
+  background: #cbd5e0;
   cursor: not-allowed;
-  opacity: 0.6;
-}
-
-/* Responsive Grid */
-@media (max-width: 1200px) {
-  .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.25rem;
-  }
+  box-shadow: none;
+  opacity: 0.7;
 }
 
 @media (max-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 1rem;
-    margin-bottom: 2rem;
   }
-
-  .product-image-container {
-    height: 160px;
-  }
-
-  .product-body {
-    padding: 1rem;
-    gap: 0.75rem;
-  }
-
-  .product-name {
-    font-size: 0.9rem;
-  }
-
-  .product-price {
-    font-size: 1.25rem;
-  }
-
-  .product-quantity {
-    padding: 0.6rem;
-    font-size: 0.8rem;
-  }
-
-  .product-add-btn {
-    padding: 0.7rem 0.85rem;
-    font-size: 0.85rem;
-  }
+  .product-image-container { height: 160px; }
+  .product-body { padding: 1rem; gap: 0.75rem; }
+  .product-name { font-size: 0.9rem; }
+  .product-price { font-size: 1.25rem; }
+  .product-add-btn { padding: 0.7rem; font-size: 0.85rem; }
 }
 
 @media (max-width: 480px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
-    margin-bottom: 1.5rem;
   }
-
-  .product-image-container {
-    height: 140px;
-  }
-
-  .product-body {
-    padding: 0.85rem;
-    gap: 0.6rem;
-  }
-
-  .product-name {
-    font-size: 0.85rem;
-  }
-
-  .product-price {
-    font-size: 1.1rem;
-  }
-
-  .stock-badge {
-    padding: 0.35rem 0.65rem;
-    font-size: 0.7rem;
-  }
-
-  .overlay-btn {
-    padding: 0.6rem 1rem;
-    font-size: 0.85rem;
-  }
+  .product-image-container { height: 140px; }
+  .product-body { padding: 0.85rem; }
+  .product-name { font-size: 0.85rem; }
+  .product-price { font-size: 1.1rem; }
 }

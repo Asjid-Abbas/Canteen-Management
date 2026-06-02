@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { motion } from "framer-motion";
 
 const SignUp = () => {
@@ -9,6 +9,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [splitEmail, setSplitEmail] = useState("");
   const navigate = useNavigate();
 
@@ -46,6 +47,20 @@ const SignUp = () => {
       setError("Failed to create an account: " + err.message);
     }
     setLoading(false);
+  };
+
+  const handleGoogleSignUp = async () => {
+    try {
+      setError("");
+      setGoogleLoading(true);
+      const auth = getAuth();
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      navigate("/");
+    } catch (err) {
+      setError("Google sign up failed: " + err.message);
+    }
+    setGoogleLoading(false);
   };
 
   return (
@@ -189,7 +204,7 @@ const SignUp = () => {
             />
           </div>
 
-          {/* BUTTON */}
+          {/* CREATE ACCOUNT BUTTON */}
           <button
             onClick={handleSubmit} disabled={loading}
             style={{
@@ -201,6 +216,30 @@ const SignUp = () => {
             }}
           >
             {loading ? "Creating Account..." : "Create Account →"}
+          </button>
+
+          {/* DIVIDER */}
+          <div style={{ display:"flex", alignItems:"center", margin:"18px 0", color:"#aaa", fontSize:"13px" }}>
+            <div style={{ flex:1, height:"1px", background:"#e2e8f0" }} />
+            <span style={{ padding:"0 12px" }}>or</span>
+            <div style={{ flex:1, height:"1px", background:"#e2e8f0" }} />
+          </div>
+
+          {/* GOOGLE BUTTON */}
+          <button
+            onClick={handleGoogleSignUp} disabled={googleLoading}
+            style={{
+              width: "100%", padding: "12px", background: "white", color: "#333",
+              border: "2px solid #e2e8f0", borderRadius: "10px", fontSize: "14px",
+              fontWeight: "600", cursor: googleLoading ? "not-allowed" : "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              gap: "10px", transition: "all 0.2s", boxShadow: "0 2px 8px rgba(0,0,0,0.06)"
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background="#f8fafc"; e.currentTarget.style.borderColor="#2e75b6"; }}
+            onMouseLeave={e => { e.currentTarget.style.background="white"; e.currentTarget.style.borderColor="#e2e8f0"; }}
+          >
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="20" height="20" />
+            {googleLoading ? "Signing up with Google..." : "Continue with Google"}
           </button>
 
           <div style={{ textAlign: "center", marginTop: "20px", color: "#888", fontSize: "13px" }}>

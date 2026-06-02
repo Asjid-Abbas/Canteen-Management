@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-import { getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth"; // 👈 GoogleAuthProvider add kiya
 
 const env = import.meta.env;
 
@@ -18,5 +18,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider(); // 
 
-export { auth, database };
+export { auth, database, googleProvider }; // 
